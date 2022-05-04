@@ -14,3 +14,10 @@ class Story(AbstractModel):
 
     def __init__(self, media_path):
         self.media_path = media_path
+
+    def json(self):
+        return {
+            'author_pk': self.author_pk,
+            'created_at': self.created_at,
+            'media_path': self.media_path
+        }

@@ -15,3 +15,6 @@ class StoryReaction(Message):
         self.story_pk = story_pk
         self.story = Story.get_by_pk(story_pk, session=session)
         super().__init__(author_pk, self.story.author_pk, text)
+
+    def json(self):
+        return {**super().json(), **{'story_pk': self.story_pk}}

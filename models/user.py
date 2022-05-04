@@ -18,3 +18,11 @@ class User(AbstractModel):
         self.name = name
         self.email = email
         self.surname = surname
+
+    def json(self):
+        return {
+            'username': self.username,
+            'name': self.name,
+            'surname': self.surname,
+            'email': self.email
+        }

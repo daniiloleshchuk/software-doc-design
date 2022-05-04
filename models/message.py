@@ -18,3 +18,10 @@ class Message(AbstractModel):
         self.author_pk = author_pk
         self.addressee_pk = addressee_pk
         self.text = text
+
+    def json(self):
+        return {
+            'author_pk': self.author_pk,
+            'addressee_pk': self.addressee_pk,
+            'text': self.text
+        }

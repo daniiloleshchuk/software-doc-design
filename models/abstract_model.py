@@ -1,3 +1,5 @@
+from abc import abstractmethod
+
 from db import Base, Session
 
 
@@ -12,3 +14,12 @@ class AbstractModel(Base):
     def get_by_pk(cls, pk, session=None):
         session = Session() if not session else session
         return session.query(cls).filter_by(pk=pk).first()
+
+    @classmethod
+    def get_all(cls, session=None):
+        session = Session() if not session else session
+        return session.query(cls).all()
+
+    @abstractmethod
+    def json(self):
+        raise NotImplementedError
