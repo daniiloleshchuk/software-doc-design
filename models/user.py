@@ -13,7 +13,7 @@ class User(AbstractModel):
     email = Column(String(50), nullable=False)
     stories = relationship("Story", back_populates="author")
 
-    def __init__(self, username, name, email, surname=None):
+    def __init__(self, username, name, email, surname=None, *args, **kwargs):
         self.username = username
         self.name = name
         self.email = email

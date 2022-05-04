@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_restful import Api
 
-from db import init_db
+from db import init_db, session
 from models import Story, User, Message, StoryReaction
 from resources import (UserResource, UsersListResource, StoryResource, StoryListResource,
                        StoryReactionResource, StoryReactionListResource)
@@ -31,7 +31,7 @@ def index():
 
 
 if __name__ == '__main__':
-    init_db()
-    generate_csv('input_data.csv')
-    write_from_csv_to_db('input_data.csv', ['User', 'Story', 'Message', 'StoryReaction'])
+    # init_db()
+    # generate_csv('input_data.csv')
+    # write_from_csv_to_db('input_data.csv', ['User', 'Story', 'Message', 'StoryReaction'], session=session)
     app.run()

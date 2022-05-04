@@ -11,9 +11,9 @@ class StoryReaction(Message):
     story_pk = Column(Integer, ForeignKey('stories.pk'))
     story = relationship('Story', backref='story')
 
-    def __init__(self, author_pk, story_pk, text, session=None):
+    def __init__(self, author_pk, story_pk, text, session=None, *args, **kwargs):
         self.story_pk = story_pk
-        self.story = Story.get_by_pk(story_pk, session=session)
+        self.story = Story.get_by_pk(story_pk)
         super().__init__(author_pk, self.story.author_pk, text)
 
     def json(self):

@@ -1,24 +1,37 @@
 from abc import abstractmethod
 
-from db import Base, Session
+from db import Base, Session, session
 
 
 class AbstractModel(Base):
     __abstract__ = True
 
-    def save(self, session=None):
+    @classmethod
+    def __commit(cls):
+        try:
+            session.commit()
+        except Exception as e:
+            raise e
+            # import pdb
+            # pdb.set_trace()
+            # session.rollback()
+
+
+    def save(self):
         session.add(self)
-        session.commit()
+        self.__commit()
 
     @classmethod
-    def get_by_pk(cls, pk, session=None):
-        session = Session() if not session else session
+    def get_by_pk(cls, pk):
         return session.query(cls).filter_by(pk=pk).first()
 
     @classmethod
-    def get_all(cls, session=None):
-        session = Session() if not session else session
+    def get_all(cls):
         return session.query(cls).all()
+
+    def delete(self):
+        session.delete(self)
+        self.__commit()
 
     @abstractmethod
     def json(self):

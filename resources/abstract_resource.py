@@ -15,23 +15,23 @@ class AbstractResource(Resource):
 
     def post(self, pk=None):
         data = self.parser.parse_args()
+        # import pdb
+        # pdb.set_trace()
         item = self.model(**data)
-        session = Session()
-        item.save(session)
+        item.save()
         return item.json(), 201 if item else 500
 
     def put(self, pk):
         data = self.parser.parse_args()
         item = self.model.get_by_pk(pk=pk)
-        session = Session()
-        item.save(session)
+        item.save()
         if item:
             for k, v in data.items():
-                if hasattr(item, k):
+                if v and hasattr(item, k):
                     setattr(item, k, v)
         else:
             item = self.model(**data)
-        item.save(session)
+        item.save()
         return item.json(), 200
 
     def delete(self, pk):
