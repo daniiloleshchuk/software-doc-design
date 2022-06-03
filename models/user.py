@@ -13,8 +13,16 @@ class User(AbstractModel):
     email = Column(String(50), nullable=False)
     stories = relationship("Story", back_populates="author")
 
-    def __init__(self, username, name, email, surname=None):
+    def __init__(self, username, name, email, surname=None, *args, **kwargs):
         self.username = username
         self.name = name
         self.email = email
         self.surname = surname
+
+    def json(self):
+        return {
+            'username': self.username,
+            'name': self.name,
+            'surname': self.surname,
+            'email': self.email
+        }

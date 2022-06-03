@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker
 engine = create_engine(os.environ.get('SDDLab_DB_URI'))
 metadata = MetaData()
 Session = sessionmaker(bind=engine)
+session = Session()
 
 Base = declarative_base()
 

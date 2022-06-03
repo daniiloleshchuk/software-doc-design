@@ -17,10 +17,10 @@ def write_from_csv_to_db(csv_filename, sections_to_search, session=None):
                         cls = getattr(sys.modules['models'], section_name)
                         for row in rows[1:]:
                             args = row.split(',')
-                            obj = cls(*args, session=session) if section_name == 'StoryReaction' else cls(*args)
+                            obj = cls(*args)
                             if section_name == 'Story':
-                                user = User.get_by_pk(randint(1, len(rows) - 1), session=session)
+                                user = User.get_by_pk(randint(1, len(rows) - 1))
                                 user.stories.append(obj)
-                                user.save(session=session)
+                                user.save()
                             else:
-                                obj.save(session=session)
+                                obj.save()
